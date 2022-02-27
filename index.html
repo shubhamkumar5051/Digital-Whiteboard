@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+
+</head>
+
+<body>
+    <i class="fas fa-square"></i>
+    <i class="fa-solid fa-line-columns"></i>
+    <!-- drawing board -->
+    <canvas></canvas>
+
+    <style>
+        body {
+            margin: 0px;
+        }
+    </style>
+</body>
+<!-- html js inject -->
+<script>
+    let body = document.querySelector("body");
+    let canvasBoard = document.querySelector("canvas");
+    //Default height and width is smaller
+    canvasBoard.height = window.innerHeight;
+    canvasBoard.width = window.innerWidth;
+    //This line will give you tool to draw on that canavas
+    let tool = canvasBoard.getContext("2d");
+    //To Build rectangle shape
+    // tool.fillStyle = "blue";
+    // tool.fillRect(0, 0, 200, 200); 
+    //Default color will be black
+
+    //To Draw Boundaries
+    // tool.strokeStyle = "red";
+    // tool.strokeRect(50, 50, 200, 200);
+
+    //to draw with pencil
+    //When mouse is press on the Screen
+    let ixPos, iyPos, fxPos, fyPos;
+    body.addEventListener("mousedown", function (e) { //e is the object
+        ixPos = e.clientX;
+        iyPos = e.clientY;
+    })
+    //when mouse is lifted on the screen
+    body.addEventListener("mouseup", function (e) {
+        fxPos = e.clientX;
+        fyPos = e.clientY;
+        let width = fxPos - ixPos;
+        let height = fyPos - iyPos;
+        tool.strokeRect(ixPos, iyPos, width, height);
+    })
+</script>
+
+</html>
