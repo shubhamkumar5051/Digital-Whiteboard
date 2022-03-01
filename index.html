@@ -6,19 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
-
+    <script src="https://kit.fontawesome.com/be8c3f51af.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
     <i class="fas fa-square"></i>
-    <i class="fa-solid fa-line-columns"></i>
+    <i class="fas fa-grip-lines-vertical"></i>
+
     <!-- drawing board -->
     <canvas></canvas>
 
     <style>
         body {
             margin: 0px;
+
+        }
+
+        .fas {
+            font-size: 3rem;
+            margin-left: 30px;
+            margin-right: 20px;
         }
     </style>
 </body>
@@ -41,6 +49,19 @@
     // tool.strokeRect(50, 50, 200, 200);
 
     //to draw with pencil
+
+    //tool change logic
+    let rectTool = document.querySelector(".fa-square");
+    let lineTool = document.querySelector(".fa-grip-lines-vertical")
+    let cTool = "temp";
+    rectTool.addEventListener("click", function () {
+        cTool = "rectTool";
+    })
+
+    lineTool.addEventListener("click", function () {
+        cTool = "lineTool";
+    })
+
     //When mouse is press on the Screen
     let ixPos, iyPos, fxPos, fyPos;
     body.addEventListener("mousedown", function (e) { //e is the object
@@ -53,7 +74,17 @@
         fyPos = e.clientY;
         let width = fxPos - ixPos;
         let height = fyPos - iyPos;
-        tool.strokeRect(ixPos, iyPos, width, height);
+        if (cTool == "rectTool") {
+            tool.strokeRect(ixPos, iyPos, width, height);
+            console.log("reactangle is selected");
+        } else {
+            tool.beginPath();
+            tool.moveTo(ixPos, iyPos);
+            tool.lineTo(fxPos, fyPos);
+            tool.stroke();
+            console.log("pencil is selected");
+        }
+
     })
 </script>
 
